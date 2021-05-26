@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DirectionalLayout
+    xmlns:ohos="http://schemas.huawei.com/res/ohos"
+    ohos:height="match_parent"
+    ohos:width="match_parent"
+    ohos:orientation="vertical"
+    ohos:padding="16vp">
+
+    <Button
+        ohos:id="$+id:number"
+        ohos:height="40vp"
+        ohos:width="match_parent"
+        ohos:background_element="$graphic:sl_button_default"
+        ohos:layout_alignment="horizontal_center"
+        ohos:text="数值"
+        ohos:text_alignment="center"
+        ohos:text_size="18fp"/>
+
+    <Button
+        ohos:id="$+id:scale"
+        ohos:height="40vp"
+        ohos:width="match_parent"
+        ohos:background_element="$graphic:sl_button_default"
+        ohos:layout_alignment="horizontal_center"
+        ohos:text="缩放"
+        ohos:text_alignment="center"
+        ohos:text_size="18fp"
+        ohos:top_margin="8vp"/>
+
+    <Button
+        ohos:id="$+id:translation"
+        ohos:height="40vp"
+        ohos:width="match_parent"
+        ohos:background_element="$graphic:sl_button_default"
+        ohos:layout_alignment="horizontal_center"
+        ohos:text="位移"
+        ohos:text_alignment="center"
+        ohos:text_size="18fp"
+        ohos:top_margin="8vp"/>
+
+    <Button
+        ohos:id="$+id:rotation"
+        ohos:height="40vp"
+        ohos:width="match_parent"
+        ohos:background_element="$graphic:sl_button_default"
+        ohos:layout_alignment="horizontal_center"
+        ohos:text="旋转"
+        ohos:text_alignment="center"
+        ohos:text_size="18fp"
+        ohos:top_margin="8vp"/>
+
+    <Button
+        ohos:id="$+id:layout"
+        ohos:height="40vp"
+        ohos:width="match_parent"
+        ohos:background_element="$graphic:sl_button_default"
+        ohos:layout_alignment="horizontal_center"
+        ohos:text="尺寸布局"
+        ohos:text_alignment="center"
+        ohos:text_size="18fp"
+        ohos:top_margin="8vp"/>
+
+    <StackLayout
+        ohos:height="match_parent"
+        ohos:width="match_parent"
+        ohos:background_element="#cccccc"
+        ohos:top_margin="8vp">
+
+        <Text
+            ohos:id="$+id:target"
+            ohos:height="40vp"
+            ohos:width="80vp"
+            ohos:background_element="#FF46AEB1"
+            ohos:layout_alignment="center"
+            ohos:text="演示"
+            ohos:text_alignment="center"
+            ohos:text_size="18fp"/>
+
+    </StackLayout>
+
+</DirectionalLayout>

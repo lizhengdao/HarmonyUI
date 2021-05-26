@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DirectionalLayout
+    xmlns:ohos="http://schemas.huawei.com/res/ohos"
+    ohos:height="match_parent"
+    ohos:width="match_parent"
+    ohos:orientation="vertical"
+    ohos:padding="16vp">
+
+    <Button
+        ohos:id="$+id:animation"
+        ohos:height="40vp"
+        ohos:width="match_parent"
+        ohos:background_element="$graphic:sl_button_default"
+        ohos:layout_alignment="horizontal_center"
+        ohos:text="Animator"
+        ohos:text_alignment="center"
+        ohos:text_size="18fp"/>
+
+    <Button
+        ohos:id="$+id:widget"
+        ohos:height="40vp"
+        ohos:width="match_parent"
+        ohos:background_element="$graphic:sl_button_default"
+        ohos:enabled="false"
+        ohos:layout_alignment="horizontal_center"
+        ohos:text="Widget"
+        ohos:text_alignment="center"
+        ohos:text_size="18fp"
+        ohos:top_margin="8vp"/>
+
+    <Button
+        ohos:id="$+id:recycler_view"
+        ohos:height="40vp"
+        ohos:width="match_parent"
+        ohos:background_element="$graphic:sl_button_default"
+        ohos:enabled="false"
+        ohos:layout_alignment="horizontal_center"
+        ohos:text="RecyclerView"
+        ohos:text_alignment="center"
+        ohos:text_size="18fp"
+        ohos:top_margin="8vp"/>
+
+    <Button
+        ohos:id="$+id:staggered_layout"
+        ohos:height="40vp"
+        ohos:width="match_parent"
+        ohos:background_element="$graphic:sl_button_default"
+        ohos:enabled="false"
+        ohos:layout_alignment="horizontal_center"
+        ohos:text="StaggeredLayout"
+        ohos:text_alignment="center"
+        ohos:text_size="18fp"
+        ohos:top_margin="8vp"/>
+
+</DirectionalLayout>
