@@ -13,7 +13,7 @@ ohos {
             }
         }
     }
-    
+
 }
 
 dependencies {
@@ -23,5 +23,5 @@ dependencies {
     ohosTestImplementation 'com.huawei.ohos.testkit:runner:1.0.0.100'
 }
 decc {
-    supportType = ['html','xml']
+    supportType = ['html', 'xml']
 }

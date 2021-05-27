@@ -22,16 +22,17 @@ public class ValueAnimator {
     private boolean isReversing = false;
     private WeakReference<Component> targetHolder;
     private Property[] targetProperties;
+    private Object currentValue;
 
     /**
-     * default construct.
+     * Default construct.
      */
     public ValueAnimator() {
         createInnerAnimator();
     }
 
     /**
-     * default construct.
+     * Default construct.
      *
      * @param target     The target component to be animated.
      * @param properties The properties of component {@link Property}.
@@ -130,6 +131,24 @@ public class ValueAnimator {
         reverseValues[1] = start;
     }
 
+    /**
+     * Read the current animated value, maybe null.
+     *
+     * @return The current animated value.
+     */
+    public Object getAnimatedValue() {
+        return currentValue;
+    }
+
+    /**
+     * Get the real animator.
+     *
+     * @return The real animator.
+     */
+    public AnimatorValue getInnerAnimator() {
+        return innerAnimator;
+    }
+
     private void createInnerAnimator() {
         innerAnimator = new AnimatorValue();
         innerAnimator.setValueUpdateListener(valueUpdateListener);
@@ -138,7 +157,7 @@ public class ValueAnimator {
 
     private final AnimatorValue.ValueUpdateListener valueUpdateListener = new AnimatorValue.ValueUpdateListener() {
         @Override
-        public void onUpdate(AnimatorValue animatorValue, float fraction) {
+        public void onUpdate(AnimatorValue animator, float fraction) {
             Object[] takeValues = values;
             if (takeReverseLogic && isReversing) {
                 takeValues = reverseValues;
@@ -148,15 +167,16 @@ public class ValueAnimator {
                 if (animatedValue instanceof Integer) {
                     int start = (int) takeValues[0];
                     int end = (int) takeValues[1];
-                    animatedValue = start + fraction * (end - start);
+                    animatedValue = start + (int) (fraction * (end - start));
                 } else {
                     float start = (float) takeValues[0];
                     float end = (float) takeValues[1];
                     animatedValue = start + fraction * (end - start);
                 }
             }
+            currentValue = animatedValue;
             if (updateListeners != null) {
-                notifyOuterListener(animatorValue, fraction, animatedValue);
+                notifyOuterListener(ValueAnimator.this, fraction, animatedValue);
             }
             if (targetHolder != null && targetHolder.get() != null) {
                 updateComponentProperty((Float) animatedValue);
@@ -164,9 +184,9 @@ public class ValueAnimator {
         }
     };
 
-    private void notifyOuterListener(AnimatorValue animatorValue, float fraction, Object currentValue) {
+    private void notifyOuterListener(ValueAnimator animator, float fraction, Object currentValue) {
         for (AnimatorUpdateListener listener : updateListeners) {
-            listener.onAnimationUpdate(animatorValue, fraction, currentValue);
+            listener.onAnimationUpdate(animator, fraction, currentValue);
         }
     }
 
@@ -302,51 +322,51 @@ public class ValueAnimator {
     public void addListener(AnimatorListener listener) {
         if (listeners == null) {
             listeners = new ArrayList<>();
+            innerAnimator.setStateChangedListener(new Animator.StateChangedListener() {
+                @Override
+                public void onStart(Animator animator) {
+                    for (AnimatorListener listener : listeners) {
+                        listener.onAnimationStart(ValueAnimator.this);
+                    }
+                }
+
+                @Override
+                public void onStop(Animator animator) {
+                    for (AnimatorListener listener : listeners) {
+                        listener.onAnimationStop(ValueAnimator.this);
+                    }
+                }
+
+                @Override
+                public void onCancel(Animator animator) {
+                    for (AnimatorListener listener : listeners) {
+                        listener.onAnimationCancel(ValueAnimator.this);
+                    }
+                }
+
+                @Override
+                public void onEnd(Animator animator) {
+                    for (AnimatorListener listener : listeners) {
+                        listener.onAnimationEnd(ValueAnimator.this);
+                    }
+                }
+
+                @Override
+                public void onPause(Animator animator) {
+                    for (AnimatorListener listener : listeners) {
+                        listener.onAnimationPause(ValueAnimator.this);
+                    }
+                }
+
+                @Override
+                public void onResume(Animator animator) {
+                    for (AnimatorListener listener : listeners) {
+                        listener.onAnimationResume(ValueAnimator.this);
+                    }
+                }
+            });
         }
         listeners.add(listener);
-        innerAnimator.setStateChangedListener(new Animator.StateChangedListener() {
-            @Override
-            public void onStart(Animator animator) {
-                for (AnimatorListener listener : listeners) {
-                    listener.onAnimationStart(ValueAnimator.this);
-                }
-            }
-
-            @Override
-            public void onStop(Animator animator) {
-                for (AnimatorListener listener : listeners) {
-                    listener.onAnimationStop(ValueAnimator.this);
-                }
-            }
-
-            @Override
-            public void onCancel(Animator animator) {
-                for (AnimatorListener listener : listeners) {
-                    listener.onAnimationCancel(ValueAnimator.this);
-                }
-            }
-
-            @Override
-            public void onEnd(Animator animator) {
-                for (AnimatorListener listener : listeners) {
-                    listener.onAnimationEnd(ValueAnimator.this);
-                }
-            }
-
-            @Override
-            public void onPause(Animator animator) {
-                for (AnimatorListener listener : listeners) {
-                    listener.onAnimationPause(ValueAnimator.this);
-                }
-            }
-
-            @Override
-            public void onResume(Animator animator) {
-                for (AnimatorListener listener : listeners) {
-                    listener.onAnimationResume(ValueAnimator.this);
-                }
-            }
-        });
     }
 
     /**
@@ -533,11 +553,11 @@ public class ValueAnimator {
         /**
          * Notifies the occurrence of another frame of the animation.
          *
-         * @param animatorValue The animation which was repeated.
+         * @param animator      The animation current playing.
          * @param fraction      The fraction of animation from 0 to 1.
          * @param animatedValue The animate value of current frame.
          */
-        void onAnimationUpdate(AnimatorValue animatorValue, float fraction, Object animatedValue);
+        void onAnimationUpdate(ValueAnimator animator, float fraction, Object animatedValue);
     }
 
     /**

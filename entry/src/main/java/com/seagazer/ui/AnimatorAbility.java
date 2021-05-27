@@ -29,7 +29,7 @@ public class AnimatorAbility extends Ability {
             number.setDuration(DURATION);
             number.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
-                public void onAnimationUpdate(AnimatorValue animatorValue, float fraction, Object animatedValue) {
+                public void onAnimationUpdate(ValueAnimator animatorValue, float fraction, Object animatedValue) {
                     System.out.println(animatedValue.toString());
                     float v = (float) animatedValue;
                     target.setText((int) v + "");
