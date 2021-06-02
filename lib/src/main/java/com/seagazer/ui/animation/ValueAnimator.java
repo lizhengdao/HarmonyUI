@@ -179,7 +179,9 @@ public class ValueAnimator {
                 notifyOuterListener(ValueAnimator.this, fraction, animatedValue);
             }
             if (targetHolder != null && targetHolder.get() != null) {
-                updateComponentProperty((Float) animatedValue);
+                if (animatedValue instanceof Float) {
+                    updateComponentProperty((Float) animatedValue);
+                }
             }
         }
     };

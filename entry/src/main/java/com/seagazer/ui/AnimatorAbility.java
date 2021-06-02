@@ -31,8 +31,8 @@ public class AnimatorAbility extends Ability {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animatorValue, float fraction, Object animatedValue) {
                     System.out.println(animatedValue.toString());
-                    float v = (float) animatedValue;
-                    target.setText((int) v + "");
+                    int v = (int) animatedValue;
+                    target.setText(v + "");
                 }
             });
             number.start();
